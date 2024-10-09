@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Propaganda</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        overflow: hidden; /* Prevent scrollbars */
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      .fullscreen-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .content {
+        text-align: center;
+        z-index: 1;
+        position: relative;
+      }
+      .click-to-start {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        cursor: pointer;
+        animation: rainbowText 3s infinite;
+      }
+      @keyframes rainbowText {
+        0% {
+          color: #ff0000;
+        } /* Red */
+        14% {
+          color: #ff7f00;
+        } /* Orange */
+        29% {
+          color: #ffff00;
+        } /* Yellow */
+        43% {
+          color: #00ff00;
+        } /* Green */
+        57% {
+          color: #0000ff;
+        } /* Blue */
+        71% {
+          color: #4b0082;
+        } /* Indigo */
+        86% {
+          color: #8b00ff;
+        } /* Violet */
+        100% {
+          color: #ff0000;
+        } /* Red */
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="autoplayAudio">
+      <source
+        src="https://cdn.jsdelivr.net/gh/Gamepagge/propaganda@main/propaganda.ogg"
+        type="audio/ogg"
+      />
+      <source src="propaganda.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <img
+      src="https://cdn.jsdelivr.net/gh/Gamepagge/propaganda@main/propaganda.jpg"
+      alt="Background Image"
+      class="fullscreen-bg"
+    />
+
+    <div
+      class="click-to-start"
+      id="clickToStart"
+      onclick="handleClickToStart()"
+    >
+      Click anywhere to start the magic!
+    </div>
+
+    <script>
+      var audio = document.getElementById("autoplayAudio");
+      var clickToStart = document.getElementById("clickToStart");
+
+      function playAudio() {
+        if (audio.paused) {
+          audio
+            .play()
+            .then(function () {
+              // Autoplay started successfully
+              console.log("Autoplay started");
+              // Hide the click to start text
+              clickToStart.style.display = "none";
+            })
+            .catch(function (error) {
+              // Autoplay was prevented
+              console.log("Autoplay was prevented:", error.message);
+            });
+        }
+      }
+
+      function handleClickToStart() {
+        playAudio();
+      }
+
+      // Attempt to play audio when the page is fully loaded
+      window.addEventListener("load", function () {
+        playAudio();
+      });
+
+      // Fallback for browsers that require user interaction
+      document.addEventListener("click", function () {
+        playAudio();
+      });
+    </script>
+  </body>
+</html>
